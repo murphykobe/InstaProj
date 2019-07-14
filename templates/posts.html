@@ -1,8 +1,17 @@
  <div>
+    
+    <a href="{% url 'create_post' %}"> create new post </a>
+
+ </div>
+ 
+ 
+ <div>
+
     {% for post in object_list %}
         <a href="{% url 'post_details' post.pk %}">
             <img src="{{post.image }}" width=200 height=200><br/></img>
             <p>{{post.title}}</p>
         </a>
     {% endfor%}
+
  </div>
