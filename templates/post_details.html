@@ -1,3 +1,8 @@
+{% extends 'header.html'%}
+
+
+{% block content %}
+
 <p>{{object.title}}</p>
 
 <img src="/{{object.image}}" width=400 height=400></img>
@@ -5,3 +10,5 @@
 <a href="{% url 'update_post' object.pk %}">Edit Post </a>
 </br>
 <a href="{% url 'delete_post' object.pk %}">Delete Post </a>
+
+{% endblock content%}
