@@ -1,35 +1,30 @@
-<html>
- {% load static %}
-<head>
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'vendor/font-awesome-4.6.3/css/font-awesome.css' %}">
-</head>
+<div class="navbar navbar-default navbar-fixed-top" id="main-nav">
+    <div class="container desktop">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">MyInsta</a>
+        </div>
 
-<body>
- <div>
-    <a href="/"> MyInsta </a>
+        <div id="navbar-main">
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                    <li>
+                      <a href="{% url 'home' %}">
+                        <i class="fa fa-home  aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li><a href="{% url 'home' %}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'create_post' %}"><i class="fa fa-plus"  aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'home' %}"><i class="fa fa-user"  aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"  aria-hidden="true"></i></a></li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}">signup</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 </div>
-
-<div>
-    <ul>
-        {% if request.user.is_authenticated %}
-        <li>
-            <a href="{% url 'logout' %}">logout</a>
-        </li>
-        {% else %}
-        <li>
-            <a href="{% url 'login' %}">login</a>
-        </li>
-
-        <li>
-            <a href="{% url 'sign_up' %}">sign up</a>
-        </li>
-        {% endif %}
-    </ul>
-<div>
-
-{% block content%}
-{% endblock content%}
-</body>
-</html>
