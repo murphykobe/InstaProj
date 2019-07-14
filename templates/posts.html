@@ -1,0 +1,7 @@
+ <div>
+    {% for post in object_list %}
+        <a href="{% url 'post' post.pk %}">
+            <img src="{{post.image.url}}"><br/>{{post.title}}</img>
+        </a>
+    {% endfor%}
+ </div>
