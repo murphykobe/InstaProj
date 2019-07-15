@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load custom_tags %}
+
 {% block content %}
 
 <div class="profile">
@@ -19,17 +21,14 @@
                             <button class="edit-profile">Edit Profile</button>
                         </a>
                     {% else %}
-                        {% comment %} {% is_following user object as following %} {% endcomment %}
+                        {% is_following user object as following %}
                         <div class="follow-toggle__container">
-                            {% comment %} <button class="btn btn-primary {% if not following %}follow-user{% else %}unfollow-user{% endif %}" id="{{ object.pk }}">
+                            <button class="btn btn-primary {% if not following %}follow-user{% else %}unfollow-user{% endif %}" id="{{ object.pk }}">
                                 {% if following %}
                                     Unfollow
                                 {% else %}
                                     Follow
                                 {% endif %}
-                            </button> {% endcomment %}
-                            <button class="btn btn-primary">
-                            Follow
                             </button>
                         </div>
                     {% endif %}
@@ -37,9 +36,9 @@
 
                 <div>
                     <ul class="stats">
-                        <div class="col-xs-4"><li class="stats__count"><span>{{ object.posts.count }}</span><br> posts</li></div>
-                        <div class="col-xs-4"><a href="/" style="text-decoration: none; color: black;"><li class="stats__count"><span class="follower_count" id="follower_id">{{ object.get_followers.count }}</span><br> followers</li></a></div>
-                        <div class="col-xs-4"><a href="/" style="text-decoration: none; color: black;"><li class="stats__count"><span>{{ object.get_followings.count }}</span><br> following</li></a></div>
+                        <div class="col-xs-4"><a href="{% url 'user_profile' object.pk %}"><li class="stats__count"><span>{{ object.posts.count }}</span><br> posts</li></a></div>
+                        <div class="col-xs-4"><a href="{% url 'follower_view' object.pk %}" style="text-decoration: none; color: black;"><li class="stats__count"><span class="follower_count" id="follower_id">{{ object.get_followers.count }}</span><br> followers</li></a></div>
+                        <div class="col-xs-4"><a href="{% url 'following_view' object.pk %}" style="text-decoration: none; color: black;"><li class="stats__count"><span>{{ object.get_followings.count }}</span><br> following</li></a></div>
                     </ul>
                 </div>
             </div>

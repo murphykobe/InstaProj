@@ -42,7 +42,7 @@ class UserConnection(models.Model):
         related_name="followers"
     )
     def __str__(self):
-        return self.creator.username + 'follows' +self.followers.username
+        return self.creator.username + 'follows' +self.following.username
 
 
 class Post(models.Model):
@@ -60,6 +60,12 @@ class Post(models.Model):
         blank = True,
         null = True,
     )
+
+    posted_on = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+    )
+
     def get_absolute_url(self):
         return reverse("post_details", args=[str(self.id)])
     
@@ -80,6 +86,7 @@ class Comment(models.Model):
             on_delete=models.CASCADE,
             related_name='comments')
     comment = models.CharField(max_length=100)
+    
     posted_on = models.DateTimeField(
             auto_now_add=True,
             editable=False
@@ -95,6 +102,9 @@ class Like(models.Model):
     user = models.ForeignKey(InstaUser,
             on_delete=models.CASCADE,
             related_name='likes')
+    class Meta:
+        unique_together = ("post", "user")
+
     def __str__(self):
         return 'Like: '+ self.user.username + ' Likes ' + self.post.title
     

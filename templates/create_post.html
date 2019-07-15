@@ -2,12 +2,41 @@
 
 {% block content %}
 
-<h1> new post </h1>
+<div class="row single-post">
+    <h4>New Post</h4>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <fieldset>
+            <legend>{{ title }}</legend>
+            {% for field in form %}
+                {% if field.errors %}
+                    <div class="control-group error">
+                        <label class="control-label">{{ field.label }}</label> 
+                        <div class="controls">{{ field }}
+                            <span class="help-inline">
+                                {% for error in  field.errors %}{{ error }}{% endfor %}
+                            </span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="control-group">
+                        <label class="control-label">{{ field.label }}</label> 
+                        <div class="controls">{{ field }}
+                            {% if field.help_text %}
+                                <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+        <br>
+        <div class="form-actions">
+            <button type="submit" class=" btn btn-primary" >Submit</button>
+        </div>
+    </form>
+</div>
 
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit"> Upload </button>
-</form>
+
+
 
 {% endblock content%}

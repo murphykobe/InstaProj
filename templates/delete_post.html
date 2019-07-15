@@ -2,12 +2,18 @@
 
 {% block content %}
 
-<h1> delete post </h1>
-
-<form action="" method="post">
-    {% csrf_token %}
-    <p> are you sure to delete {{object.titile}}</p>
-    <button type="submit"> Delete </button>
-</form>
+<div class="row single-post">
+    <h4>Delete Post</h4>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p> are you sure to delete {{object.titile}}</p>
+            <br>
+            <div class="form-actions">
+                <button type="submit" class=" btn btn-primary" >Delete</button>
+            </div>
+        </form>
+</div>
 
 {% endblock content%}
+
+

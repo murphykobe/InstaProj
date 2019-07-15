@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% load custom_tags %}
+
+{% block content %}
+
+<div class="cards-listing">
+    {% for object in object_list %}
+        <div class="row">
+            <div class="card view-update {{ user.pk }}">
+                <div class="card__panel-head">
+                    <div class="poster__info">
+                        <a>
+                            {% if object.profile_pic %}
+                                <img class="poster__profilepic" src="http://{{ request.META.HTTP_HOST }}/{{object.profile_pic.url}}">
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'user_profile' object.pk %}">{{ object.username }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{%  endblock content %}
+

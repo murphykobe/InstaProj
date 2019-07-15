@@ -1,7 +1,9 @@
+{% load custom_tags %}
+
 <div class="navbar navbar-default navbar-fixed-top" id="main-nav">
     <div class="container desktop">
         <div class="navbar-header">
-            <a href="/" class="navbar-brand">MyInsta</a>
+            <a href="/" class="navbar-brand">Sneaker Hub</a>
         </div>
 
         <div id="navbar-main">
@@ -9,19 +11,19 @@
                 {% if request.user.is_authenticated %}
                     <li>
                       <a href="{% url 'home' %}">
-                        <i class="fa fa-home  aria-hidden="true"></i>
+                        <i class="fa fa-home {% if request.resolver_match.url_name == 'home' %} active {% endif %}"  aria-hidden="true"></i>
                       </a>
                     </li>
-                    <li><a href="{% url 'home' %}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                    <li><a href="{% url 'create_post' %}"><i class="fa fa-plus"  aria-hidden="true"></i></a></li>
-                    <li><a href="{% url 'user_profile' request.user.id %}"><i class="fa fa-user"  aria-hidden="true"></i></a></li>
-                    <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"  aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'explore' %}"><i class="fa fa-search {% active 'explore' %}" aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'create_post' %}"><i class="fa fa-plus {% active 'create_post' %}"  aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'user_profile' request.user.pk %}"><i class="fa fa-user {% active 'user_profile' %}"  aria-hidden="true"></i></a></li>
+                    <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out {% active 'logout' %}" aria-hidden="true"></i></a></li>
                 {% else %}
                     <li>
                         <a href="{% url 'login' %}">login</a>
                     </li>
                     <li>
-                        <a href="{% url 'signup' %}">signup</a>
+                        <a href="{% url 'sign_up' %}">signup</a>
                     </li>
                 {% endif %}
             </ul>
