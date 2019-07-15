@@ -1,4 +1,4 @@
-"""InstaProj URL Configuration
+"""Insta URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Insta.views import UserSignUp
+
+from API.views import PostAPIView,CreateAPIView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('Insta.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
-    path('auth/signup', UserSignUp.as_view(), name='sign_up'),
-    path('api/',include('API.urls')),
+    path('', PostAPIView.as_view(), name='home_api'),
+    path('create_post/',CreateAPIView.as_view(),name='create_post_api'),
 ]
+ 

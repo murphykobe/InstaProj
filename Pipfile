@@ -12,6 +12,7 @@ pillow = "*"
 django-annoying = "*"
 gunicorn = "*"
 whitenoise = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.6"
