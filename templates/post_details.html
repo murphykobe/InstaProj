@@ -2,12 +2,48 @@
 
 {% block content %}
 
-<p>{{object.title}}</p>
-
-<img src="/{{object.image}}" width=400 height=400></img>
-</br>
-<a href="{% url 'update_post' object.pk %}">Edit Post </a>
-</br>
-<a href="{% url 'delete_post' object.pk %}">Delete Post </a>
+<div class="row single-post">
+    <div class="single-post-card view-update {{ object.pk }}">
+        <div class="header">
+            <a href="{% url 'home' %}">
+                {% if object.author.profile_pic %}
+                    <img class="picture-circle--medium" src="http://{{ request.META.HTTP_HOST }}/{{object.author.profile_pic.url}}">
+                {% endif %}
+                {{ object.author.username }}
+            </a>
+        </div>
+        <div class="image__wrapper">
+            <img class="card__main-image" src="http://{{ request.META.HTTP_HOST }}/{{object.image.url}}" width='1000', height='1000'>
+        </div>
+        <div class="comments-portion">
+            <div class="likes-timestamp-row">
+                <div class="likes">
+                    {% if object.get_like_count %}
+                        {{ object.get_like_count }} like{% if object.get_like_count > 1 %}s{% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <ul class="comment-list">
+                {% for comment in object.comments.all %}
+                <li class="comment-list__comment">
+                    <a href="{% url 'home'%}" class="user">
+                        {{ comment.user.username }}
+                    </a>
+                    <span class="comment">{{ comment.comment }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <section class="input-row">
+                <i class="fa {% if liked %}fa-heart{% else %}fa-heart-o{% endif %} submit-like" aria-hidden="true"></i>
+                <div class="comment-input-wrapper">
+                    <input class="add-comment" type="text" placeholder="Add a comment...">
+                </div>
+                <div class="hidden-data {{ object.pk }}" style="display: none;">
+                    <span class="post-pk">{{ object.pk }}</span>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 
 {% endblock content%}
